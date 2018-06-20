@@ -279,9 +279,18 @@ function changeStatus(id)
 }
 
 socket.on('changeStatus', function(data){
-	if(data.user != userName.textContent){
-		var div = document.getElementById(data.id);
-		div.children[0].innerHTML = '<span>已读</span>';
+	var div = document.getElementById(data.id);
+		
+	for (var i = div.children.length - 1; i >= 0; i--) {
+		if(data.user != userName.textContent){
+			if(div.children[i].hasOwnProperty('other-message-status')){
+				div.children[i].innerHTML = '<span>已读</span>';
+			}
+		}else{
+			if(div.children[i].hasOwnProperty('message-status')){
+				div.children[i].innerHTML = '<span>已读</span>';
+			}
+		}
 	}
 })
 
